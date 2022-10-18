@@ -20,19 +20,19 @@
 #  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS   #
 #  FOR A PARTICULAR PURPOSE. See GNU General Public License for details.           #
 
-cmake_minimum_required(VERSION          2.8)
+cmake_minimum_required(VERSION          3.0)
 cmake_policy(SET CMP0048                NEW) 
 
 option(BUILD_EXAMPLE "Build demo"        ON)
 set(GK_VERSION_MAJOR                      3)
 set(GK_VERSION_MINOR                      0)
-set(GK_VERSION_PATCH                      0)
+set(GK_VERSION_PATCH                      1)
 
 project(lib_opengjk_ce 
-    LANGUAGES C
-	DESCRIPTION "openGJK library community edition (CE)"
+    LANGUAGES    C
+	DESCRIPTION  "openGJK library community edition (CE)"
     HOMEPAGE_URL "www.mattiamontanari.com/opengjk/"
-    VERSION ${GK_VERSION_MAJOR}.${GK_VERSION_MINOR}.${GK_VERSION_PATCH}
+    VERSION      ${GK_VERSION_MAJOR}.${GK_VERSION_MINOR}.${GK_VERSION_PATCH}
 )
 
 set( C_STANDARD                          99)
@@ -42,8 +42,7 @@ set( CMAKE_POLICY_DEFAULT_CMP0079        NEW)
 set( CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS    ON)
 set( CMAKE_INCLUDE_CURRENT_DIR           TRUE)
 
-# Set compile flags
-message(STATUS "Compiler in use: ${CMAKE_C_COMPILER_ID}")
+# Setup compile
 set( CMAKE_C_FLAGS_DEBUG                 "-O0 -g -Wall")
 set( CMAKE_C_FLAGS_RELEASE               "-O3 -Werror")
 
@@ -56,6 +55,7 @@ elseif (CMAKE_C_COMPILER_ID STREQUAL "Intel")
 elseif (CMAKE_C_COMPILER_ID STREQUAL "MSVC")
 endif()
 
+# Setup project build
 set( GK_PUBLIC_HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_library(${PROJECT_NAME} 
@@ -82,6 +82,7 @@ if(BUILD_EXAMPLE)
     add_subdirectory(examples/c)
 endif(BUILD_EXAMPLE)
 
+# Setup project install - not tested yet!
 if (UNIX)
     install(TARGETS ${PROJECT_NAME} PERMISSIONS WORLD_WRITE )
     set(DESTDIR "/usr")
@@ -92,5 +93,6 @@ if (UNIX)
 endif (UNIX)
 
 # Wrap up feedback on setup
-message(STATUS "Version     : " ${CMAKE_PROJECT_VERSION}  )
+message(STATUS "Version     : " ${GK_VERSION_MAJOR}.${GK_VERSION_MINOR}.${GK_VERSION_PATCH}  )
 message(STATUS "Build type  : " ${CMAKE_BUILD_TYPE} )
+message(STATUS "Compiler    : ${CMAKE_C_COMPILER_ID}")

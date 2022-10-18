@@ -44,7 +44,12 @@ If you get no errors, the successfull output is:
 
 However, if you do get an error - any error - please file a bug! Support requests are welcome too.
 
-# Beyond getting started
+Finally, you can install the library and its public header locally with:
+``` 
+cmake --install build
+```
+
+# Where to go next
 
 With the commands above you have built a demo example tha invokes the openGJK library. The library is statically linked and the distance between two bodies is computed and returned. 
 
